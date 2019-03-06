@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:aurinko/models/weather.dart';
+import 'package:aurinko/models/models.dart';
 
 class WeatherApiClient {
   static const baseUrl = 'https://www.metaweather.com';

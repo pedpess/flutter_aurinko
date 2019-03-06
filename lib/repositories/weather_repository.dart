@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
-import 'package:aurinko/api/weather_api_client.dart';
-import 'package:aurinko/models/weather.dart';
+import 'package:aurinko/api/api.dart';
+import 'package:aurinko/models/models.dart';
 
 class WeatherRepository {
   final WeatherApiClient weatherApiClient;
