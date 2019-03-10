@@ -35,6 +35,14 @@ class WeatherLoaded extends WeatherState {
 
 class WeatherError extends WeatherState {}
 
+class RefreshWeather extends WeatherEvent {
+  final String city;
+
+  RefreshWeather({@required this.city})
+      : assert(city != null),
+        super([city]);
+}
+
 class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
   final WeatherRepository weatherRepository;
 
@@ -54,6 +62,15 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
         yield WeatherLoaded(weather: weather);
       } catch (_) {
         yield WeatherError();
+      }
+    }
+
+    if (event is RefreshWeather) {
+      try {
+        final Weather weather = await weatherRepository.getWeather(event.city);
+        yield WeatherLoaded(weather: weather);
+      } catch (_) {
+        yield currentState;
       }
     }
   }
