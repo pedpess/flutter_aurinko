@@ -40,22 +40,26 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   ThemeBloc _themeBloc = ThemeBloc();
+  SettingsBloc _settingsBloc = SettingsBloc();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       bloc: _themeBloc,
-      child: BlocBuilder(
-        bloc: _themeBloc,
-        builder: (_, ThemeState themeState) {
-          return MaterialApp(
-            title: 'Aurinko',
-            theme: themeState.theme,
-            home: Weather(
-              weatherRepository: widget.weatherRepository,
-            ),
-          );
-        },
+      child: BlocProvider(
+        bloc: _settingsBloc,
+        child: BlocBuilder(
+          bloc: _themeBloc,
+          builder: (_, ThemeState themeState) {
+            return MaterialApp(
+              title: 'Aurinko',
+              theme: themeState.theme,
+              home: Weather(
+                weatherRepository: widget.weatherRepository,
+              ),
+            );
+          },
+        ),
       ),
     );
   }
@@ -63,6 +67,7 @@ class _AppState extends State<App> {
   @override
   void dispose() {
     _themeBloc.dispose();
+    _settingsBloc.dispose();
     super.dispose();
   }
 }
